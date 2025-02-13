@@ -15,50 +15,13 @@ class HomeController extends Controller
         // Lấy dữ liệu SEO
         $seoData = $this->getSeoData();
 
-        // Lấy manga được đề xuất cho slider hoặc manga mới nhất
-        $sliderMangas = Manga::where('is_recommended', true)
-            ->orderByDesc('created_at')
-            ->select(['title', 'slug', 'cover'])
-            ->with([
-                'chapters' => function ($query) {
-                    $query->orderBy('chapter_number', 'desc')
-                        ->select('chapter_number', 'created_at')
-                        ->limit(1);
-                }
-            ])
-            ->take(10)
-            ->get();
+        $sliderMangas = $this->getSliderMangas();
 
         // Lấy manga được xem nhiều nhất trong tháng
-        $startDate = Carbon::now()->startOfMonth();
-        $mostViewedMangas = Manga::select(['id', 'title', 'slug', 'cover', 'description'])
-            ->whereHas('views', function ($query) use ($startDate) {
-                $query->where('updated_at', '>=', $startDate);
-            })
-            ->with([
-                'chapters' => function ($query) {
-                    $query->orderBy('chapter_number', 'desc')
-                        ->select('manga_id', 'chapter_number', 'created_at')
-                        ->limit(1);
-                }
-            ])
-            ->withSum('views', 'views')
-            ->orderByDesc('views_sum_views')
-            ->take(10)
-            ->get();
+        $mostViewedMangas = $this->getMostViewedMangas('month');
 
         // Lấy manga mới cập nhật
-        $updatedMangas = Manga::select(['id', 'title', 'slug', 'cover', 'description', 'updated_at'])
-            ->orderByDesc('updated_at')
-            ->with([
-                'chapters' => function ($query) {
-                    $query->select('manga_id', 'chapter_number', 'created_at')
-                        ->orderBy('chapter_number', 'desc')
-                        ->limit(2);
-                }
-            ])
-            ->withSum('views', 'views')
-            ->paginate(36);
+        $updatedMangas = $this->getUpdatedMangas();
 
         // Chuẩn bị dữ liệu truyền vào view
         $data = [
@@ -69,7 +32,6 @@ class HomeController extends Controller
         ];
 
         return view('frontend-web.home.index', $data);
-        // return $data;
     }
 
     protected function getSeoData()
@@ -87,8 +49,8 @@ class HomeController extends Controller
 
     public function getUpdatedMangas()
     {
-        $mangas = Manga::query()
-            ->orderByDesc('updated_at')
+        $mangas = Manga::select(['id', 'title', 'alternative_titles', 'slug', 'cover', 'description', 'updated_at'])
+            ->orderByDesc('created_at')
             ->with([
                 'chapters' => function ($query) {
                     return $query
@@ -123,29 +85,27 @@ class HomeController extends Controller
 
     protected function getSliderMangas()
     {
-        $mangas = Cache::rememberForever('slider_mangas', function () {
-            return Manga::where('is_recommended', true)
-                ->select(['id', 'title', 'slug', 'cover', 'description'])
-                ->with([
-                    'taxanomies' => function ($query) {
-                        return $query->whereIn('type', ['genre', 'status'])
-                            ->select('name', 'slug', 'type');
-                    },
-                ])
-                ->with([
-                    'chapters' => function ($query) {
-                        return $query
-                            ->orderBy('chapter_number', 'desc')
-                            ->select('manga_id', 'chapter_number', 'created_at')
-                            ->limit(1);
-                    }
-                ])
-                ->take(10)
-                ->get();
-        });
+        $mangas = Manga::where('is_recommended', true)
+            ->select(['id', 'title', 'slug'])
+            ->with([
+                'taxanomies' => function ($query) {
+                    return $query->whereIn('type', ['genre', 'status'])
+                        ->select('name', 'slug', 'type');
+                },
+            ])
+            ->with([
+                'chapters' => function ($query) {
+                    return $query
+                        ->orderBy('chapter_number', 'desc')
+                        ->select('manga_id', 'chapter_number', 'created_at')
+                        ->limit(1);
+                }
+            ])
+            ->take(10)
+            ->get();
 
         if (!count($mangas) > 0) {
-            return $this->getLatestMangas();
+            return $this->getMostViewedMangas(null);
         }
     }
 
@@ -186,35 +146,5 @@ class HomeController extends Controller
 
             return $mangas;
         });
-    }
-
-    public function hotIndex()
-    {
-        $data = [
-            'seoData' => $this->getSeoData(),
-            'sliderMangas' => $this->getSliderMangas(),
-            'mostViewedMangas' =>   $this->getMostViewedMangas('month'),
-            'updatedMangas' => $this->getUpdatedMangas(),
-        ];
-
-        return view('frontend-web.home.index', $data);
-    }
-
-    protected function getHotMangas()
-    {
-        $mangas = Manga::query()
-            ->with([
-                'chapters' => function ($query) {
-                    return $query
-                        ->orderBy('chapter_number', 'desc')
-                        ->select('manga_id', 'chapter_number', 'created_at')
-                        ->limit(2);
-                }
-            ])
-            ->withSum('views', 'views')
-            ->orderByDesc('views_sum_views')
-            ->paginate(36);
-
-        return $mangas;
     }
 }

@@ -121,11 +121,7 @@
                 <div class="ModuleContent">
                     <div class="items">
                         <div class="row">
-
-                            @foreach ($mangas as $manga)
-                                @include('frontend-web.partials.manga-list.item', ['manga' => $manga])
-                            @endforeach
-
+                            @each('frontend-web.partials.manga-list.item', $mangas, 'manga')
                         </div>
                     </div>
 

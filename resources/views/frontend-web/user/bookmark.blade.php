@@ -104,7 +104,7 @@
                                                     )) :
                                                 0 == o &&
                                                 e.html(
-                                                    '<p>{{ __('menu.no_mangas') }}</p>'
+                                                    '<p>Empty</p>'
                                                 ));
                                     },
                                     complete: function(e) {

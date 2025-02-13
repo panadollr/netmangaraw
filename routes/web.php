@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Route;
 //HOME CONTROLLER
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
-    Route::get('/hot', 'hotIndex')->name('hot');
 });
 
 //SEARCH CONTROLLER
@@ -24,8 +23,8 @@ Route::controller(MangaDetailController::class)->group(function () {
     Route::get('read/{slug}-chapter-{chapter_number}', 'read')
         ->name('manga.read')
         ->where([
-            'slug' => '[a-zA-Z0-9_-]+', 
-            'chapter_number' => '[0-9]+(?:\.[0-9]+)?' 
+            'slug' => '[a-zA-Z0-9_-]+',
+            'chapter_number' => '[0-9]+(?:\.[0-9]+)?'
         ]);
 });
 
@@ -43,4 +42,3 @@ Route::get('/bookmark', [UserController::class, 'bookmarkIndex'])->name('bookmar
 Route::get('/history', [UserController::class, 'historyIndex'])->name('history');
 Route::get('get-history', [UserController::class, 'getHistory'])->name('get-history');
 Route::get('get-bookmark', [UserController::class, 'getBookmark'])->name('get-bookmark');
-

@@ -3,8 +3,8 @@
         <div class="image">
             <a href="{{ route('manga.detail', ['slug' => $manga->slug]) }}" title="{{ $manga->title }}">
                 <img alt="{{ $manga->title }}" class="lazy" data-original="{{ $manga->cover }}"
-                    src="{{ asset(config('custom.preload_cover')) }}"
-                    onerror="this.onerror=null;this.src='{{ asset('frontend-web/images/logo.png') }}';" />
+                    src="{{ asset(config('custom.preload_cover')) }}" loading="lazy"
+                    onerror="this.onerror=null;this.src='{{ asset(config('custom.not_found_cover')) }}';" />
             </a>
             <div class="clearfix view">
                 <span class="pull-left">
@@ -75,7 +75,7 @@
                     <a href="{{ route('manga.detail', ['slug' => $manga->slug]) }}" title="{{ $manga->title }}">
                         <img alt="{{ $manga->title }}" class="lazy" data-original="{{ $manga->cover }}"
                             src="{{ asset(config('custom.preload_cover')) }}"
-                            onerror="this.onerror=null;this.src='{{ asset('frontend-web/images/logo.png') }}';" />
+                            onerror="this.onerror=null;this.src='{{ asset(config('custom.not_found_cover')) }}';" />
                     </a>
                 </div>
                 <div class="message_main">

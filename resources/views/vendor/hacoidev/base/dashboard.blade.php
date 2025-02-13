@@ -215,18 +215,18 @@
         </div>
         <div class="p-3 col-md-2">
             <!-- <table class="table table-sm">
-                            <thead>
-                                <tr>
-                                    <th colspan="2" scope="col">TOP THÁNG</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white">
+                                <thead>
                                     <tr>
-                                        <td><a target="_blank" href=""></a></td>
-                                        <td class="text-right"><span class="badge badge-success"><i class="las la-eye"></i> </span></td>
+                                        <th colspan="2" scope="col">TOP THÁNG</th>
                                     </tr>
-                            </tbody>
-                        </table> -->
+                                </thead>
+                                <tbody class="bg-white">
+                                        <tr>
+                                            <td><a target="_blank" href=""></a></td>
+                                            <td class="text-right"><span class="badge badge-success"><i class="las la-eye"></i> </span></td>
+                                        </tr>
+                                </tbody>
+                            </table> -->
             <table id="top-month" class="table table-sm table-dark border-light">
                 <thead>
                     <tr>
@@ -269,7 +269,7 @@
     // Hàm fetch dữ liệu từ API
     async function fetchDashboardCounterInfo() {
         try {
-            const response = await fetch('{{ url('/HgdbCA25admin/dashboard-counter-info') }}')
+            const response = await fetch('{{ backpack_url('dashboard-counter-info') }}')
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -285,7 +285,7 @@
 
     async function fetchDashboardMangasInfo() {
         try {
-            const response = await fetch('{{ url('/HgdbCA25admin/dashboard-mangas-info') }}')
+            const response = await fetch('{{ backpack_url('dashboard-mangas-info') }}')
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }

@@ -61,15 +61,15 @@
     <li class="nav-item nav-dropdown"><a class="nav-link nav-dropdown-toggle" href="#"><i
                 class="nav-icon la la-cog"></i> Cài đặt</a>
         <ul class="nav-dropdown-items">
-            <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting/group/generals/edit') }}'><i
+            {{-- <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting/group/generals/edit') }}'><i
                         class='nav-icon la la-wrench'></i>
-                    <span>General</span></a></li>
+                    <span>General</span></a></li> --}}
             <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting/group/metas/edit') }}'><i
                         class='nav-icon la la-chevron-circle-up'></i>
                     <span>SEO</span></a></li>
-            <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting/group/image_services/edit') }}'><i
+            {{-- <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting/group/image_services/edit') }}'><i
                         class='nav-icon la la-image'></i>
-                    <span>Dịch vụ ảnh</span></a></li>
+                    <span>Dịch vụ ảnh</span></a></li> --}}
             <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting/group/notifications/edit') }}'><i
                         class='nav-icon la la-bell'></i>
                     Thông báo</a>

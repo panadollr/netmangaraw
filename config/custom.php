@@ -5,7 +5,7 @@ return [
     'frontend_name' => 'manga',
     'frontend_url' => 'https://manga.com',
     'frontend_domain' => 'manga.com',
-    'ADMIN_LOGIN_VERIFICATION_CODE' => '',
-
-    'preload_cover' => 'frontend-web/images/logo.png',
+    'admin_login_verified_code' => '555',
+    'preload_cover' => 'frontend-web/images/loading-small.gif',
+    'not_found_cover' => 'frontend-web/images/not_found.jpg',
 ];

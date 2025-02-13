@@ -81,7 +81,7 @@
                     <div class="box_doc reading-detail">
                         @php
                             $pages = $currentChapter->content;
-                            $totalPages = count($pages);
+                            $totalPages = is_array($pages) ? count($pages) : 0;
                         @endphp
 
                         <!-- Notification Page -->
@@ -93,15 +93,18 @@
                                 src="{{ asset('frontend-web/images/chapter_page_notify.jpg') }}" loading="lazy" />
                         </div>
                         <!-- Pages -->
-                        @foreach ($pages as $index => $page)
-                            <div class="page-chapter {{ $index === $totalPages - 1 ? 'lazy-module' : '' }}"
-                                data-type="{{ $index === $totalPages - 1 ? 'end-chapter' : '' }}"
-                                id="page_{{ $index }}">
-                                <img alt="{{ $manga->title }} - Page {{ $index }}" class="lazy"
-                                    data-original="{{ $page }}"
-                                    src="{{ asset(config('custom.preload_cover')) }}" />
-                            </div>
-                        @endforeach
+                        @isset($pages)
+                            @foreach ($pages as $index => $page)
+                                <div class="page-chapter {{ $index === $totalPages - 1 ? 'lazy-module' : '' }}"
+                                    data-type="{{ $index === $totalPages - 1 ? 'end-chapter' : '' }}"
+                                    id="page_{{ $index }}">
+                                    <img alt="{{ $manga->title }} - Page {{ $index }}" class="lazy"
+                                        data-original="{{ $page }}" loading="lazy"
+                                        src="{{ asset(config('custom.preload_cover')) }}"
+                                        onerror="this.onerror=null; this.src='{{ asset(config('custom.not_found_cover')) }}';" />
+                                </div>
+                            @endforeach
+                        @endisset
                     </div>
                     <div class="container">
                         <div class="bottom top">

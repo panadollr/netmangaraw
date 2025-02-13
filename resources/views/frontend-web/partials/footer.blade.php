@@ -19,16 +19,10 @@
                     <h4>タグ</h4>
                     <ul>
                         <li>
-                            <a href="{{ route('home') }}" target="_self" title="mangaraw">漫画raw</a>
+                            <a href="{{ route('home') }}" target="_self" title="mangaraw">Manga</a>
                         </li>
                         <li>
-                            <a href="{{ route('home') }}" target="_self" title="mangaraw">漫画ろう</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('home') }}" target="_self" title="mangaraw">漫画ロー</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('home') }}" target="_self" title="mangaraw">manga raw</a>
+                            <a href="{{ route('home') }}" target="_self" title="mangaraw">Truyện tranh</a>
                         </li>
                     </ul>
                 </div>
@@ -49,17 +43,16 @@
         <div class="ModuleContent">
             <ul class="main-menu nav navbar-nav">
                 <li class="active">
-                    <a href="{{ route('home') }}" target="_self"><i class="fa fa-home hidden-xs"></i>
-                        <span class="visible-xs">ほホーム</span></a>
+                    <a href="{{ route('home') }}" target="_self">
+                        <i class="fa fa-home hidden-xs"></i>
+                        <span class="visible-xs">@lang('messages.home')</span>
+                    </a>
                 </li>
                 <li>
-                    <a href="{{ route('hot') }}" target="_self">人気</a>
+                    <a href="{{ route('bookmark') }}" target="_self">@lang('messages.bookmark')</a>
                 </li>
                 <li>
-                    <a href="{{ route('bookmark') }}" target="_self">ブックマーク</a>
-                </li>
-                <li>
-                    <a href="{{ route('history') }}" target="_self">履歴</a>
+                    <a href="{{ route('history') }}" target="_self">@lang('messages.history')</a>
                 </li>
                 <li class="dropdown">
                     <a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown"

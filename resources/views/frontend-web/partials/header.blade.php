@@ -101,9 +101,6 @@
                             <a href="{{ route('home') }}" target="_self"><i class="fa fa-home hidden-xs"></i>
                                 <span class="visible-xs">@lang('menu.home')</span>
                         </li>
-                        <li class="{{ request()->routeIs('hot') ? 'active' : '' }}">
-                            <a href="{{ route('hot') }}" target="_self">@lang('menu.popularity')</a>
-                        </li>
                         <li class="{{ request()->routeIs('bookmark') ? 'active' : '' }}">
                             <a href="{{ route('bookmark') }}" target="_self">@lang('menu.bookmark')</a>
                         </li>
